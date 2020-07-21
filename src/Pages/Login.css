@@ -258,6 +258,8 @@ html {
   } 
   
   #icon {
-    width:60%;
+    width:30%;
+    height: 50%;
+    background-color: white;
   }
   

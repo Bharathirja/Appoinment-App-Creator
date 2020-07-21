@@ -51,7 +51,7 @@ class Login extends Component {
             <div className="wrapper fadeInDown">
                 <div id="formContent">
                     <div className="fadeIn first">
-                    <img src="./Images/download.png" id="icon" alt="User Icon" />
+                    <img src={require("../Images/pg-logo.svg")} id="icon" alt="User Icon" />
                     </div>
                     {/* <form> */}
                         <input 
