@@ -6,17 +6,19 @@ import Home from './Pages/Home';
 import About from './Pages/About';
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
+import Login from './Pages/Login';
 
 function App() {
   
   return (
     // <Router>
     <div>
-      <Navbar />
       <Switch>
+      <Route exact path="/" component={Login}/>
+      
       <Route exact path="/home" component={Home}/>
       <Route exact path="/about" component={About}/>
-      <Route exact  path="/" component={Home}/>
+      {/* <Route exact  path="/" component={Login}/> */}
 
 
       </Switch>

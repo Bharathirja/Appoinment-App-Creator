@@ -1,22 +1,35 @@
 import React, { Component } from 'react'
 import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
+import {Redirect} from 'react-router-dom';
 
 class About extends Component {
     constructor(props) {
         super(props)
+        let token = localStorage.getItem('Token')
 
-        this.state = {
-                 
+        let loggedIn = false;
+        if(token == null) {
+            loggedIn = false
+        }else {
+            loggedIn = true
         }
+    
+       this.state = {
+           loggedIn
+       }
+       
     }
-
+    
 
 
     render() {
+        if(this.state.loggedIn === false) {
+            return <Redirect to = "/" />
+        }
+
         return (
             <div>
-                {/* <Navbar /> */}
+                <Navbar />
                 <div className="container">
                     <h5>Welcome to About Page</h5>
                 </div>

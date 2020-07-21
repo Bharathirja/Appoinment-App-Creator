@@ -1,0 +1,18 @@
+
+[
+    //  App Creator
+    {
+        "Methods":["POST","GET","PUT","DELETE"],
+        "Shop_Name":"Char",
+        "Owner_Name":"Char",
+        "Mobile_Number":"MobileNumber",
+        "Email":"Char",
+        "Address":"Char",
+        "GST_Number":"Char",
+        "Title_Bar_Color":"Char",
+        "Backgroun_Image":"Image",
+        "Icon_Color":"Char",
+        "Logo":"Image"
+    }
+]
+    

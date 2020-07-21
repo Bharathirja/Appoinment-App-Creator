@@ -11,6 +11,10 @@ class Navbar extends Component {
         }
     }
 
+    logout() {
+      localStorage.clear()
+    }
+
     render() {
         return (
             
@@ -27,6 +31,9 @@ class Navbar extends Component {
                 </li>
                 <li className="nav-item">
                   <NavLink exact activeClassName="active-link" className="nav-link" to="/about">About</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink exact activeClassName="active-link" className="nav-link" to="/" onClick={()=>this.logout()}>Logout</NavLink>
                 </li>
                
               </ul>

@@ -13,9 +13,9 @@ class Footer extends Component {
     render() {
         return (
             <div>
-                <footer class="footer">
-                <div class="container">
-                    <span class="text-muted">PG Analytics@2020</span>
+                <footer className="footer">
+                <div className="container">
+                    <span className="text-muted">PG Analytics@2020</span>
                 </div>
                 </footer>
             </div>
