@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Redirect } from 'react-router-dom';
+import Notifications, {notify} from 'react-notify-toast';
 import './Login.css'
 
 class Login extends Component {
@@ -38,6 +39,7 @@ class Login extends Component {
         }
         else {
             alert("Username or Password Incorrect")
+            // notify.show("Username or Password Incorrect","error",)
         }
     }
 

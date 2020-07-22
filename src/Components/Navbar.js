@@ -19,7 +19,7 @@ class Navbar extends Component {
         return (
             
             <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4 shadow p-3 mb-6 border-bottom">
-            <div className="container">
+            <div className="container-fluid">
             <NavLink className="navbar-brand" to="/home">APP CREATOR</NavLink>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>

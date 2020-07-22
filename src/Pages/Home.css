@@ -1,0 +1,24 @@
+/* input[type="text"], input[type="email"],input[type="file"],select,  textarea{ 
+    border:none;
+    box-shadow:1px 1px 10px 5px rgba(1,1,1,0.2);
+    transition: 0.6s ease;
+    margin-bottom:50px;
+    float:left;
+    width:100%;
+    height:20px;
+    }
+    textarea{
+    height:150px;
+    }
+    /* input[type="file"]{
+        height: 30px;
+    } */
+
+    /* input[type="text"]:focus, input[type="email"]:focus,input[type="file"]:focus,  textarea:focus{ 
+    box-shadow:0px 10px 10px -8px rgba(1,1,1,0.8);
+    } */ 
+
+    img {
+        height: 80px;
+        width: 88px;
+    }
