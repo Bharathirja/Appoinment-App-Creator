@@ -1,59 +1,71 @@
 import React, { Component } from 'react';
 import {Redirect } from 'react-router-dom';
-import Notifications, {notify} from 'react-notify-toast';
 import './Login.css'
+import axios from 'axios';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as loginAction from "../../action/loginAction";
+import loginApi from "../../api/loginApi";
+
+var CryptoJS = require("crypto-js");
 
 class Login extends Component {
 
     constructor(props) {
         super(props)
-       
-        this.state = {
-            loggedIn:false
+    }
+
+    setSessionStorage(result) {
+        // console.log(result);
+        if (result) {
+            let userDetails = {};
+            window.sessionStorage.setItem('userToken', JSON.stringify(result.access));
         }
+    }
+
+    login(loginDetails) {
+        return loginApi.login(loginDetails)
+    }
+
+    redirectPage() {
+        this.props.history.replace("/home")
     }
 
     // Login Method When login Button Click this will be function
     Login() {
+
         // API Fetch real Data 
-        console.log(this.state)
-        // fetch('http://127.0.0.1:8000/api/login',{
-        //     method:'POST',
-        //     headers:"application/json",
-        //     "Content-Type":"application/json",
-        // },
-        // body,JSON.stringify(this.state)).then((result)=>{
-        //     result.json().then((res)=>{
-        //         console.log(res)
-        //         localStorage.setItem("Token",JSON.stringify(res.token))
-        //     })
-        // })
-
-        // Just Testing without Backend
-        if(this.state.username ==="A" && this.state.password === "B") {
-            localStorage.setItem('Token',"Bharathiraja")
-            this.setState({
-                loggedIn:true
-            })
-
+        const loginDetails = {
+            username:this.state.username,
+            password:this.state.password
         }
-        else {
-            alert("Username or Password Incorrect")
-            // notify.show("Username or Password Incorrect","error",)
-        }
+        console.log(loginDetails)
+        this.login(loginDetails)
+        .then(res => {
+           
+            let data = res.data
+            console.log(data);
+            this.setSessionStorage(data);
+            this.redirectPage()
+
+        }).catch(err => {
+            console.log(err)
+            alert(err)
+        });
+        
     }
 
     render() {
-        if (this.state.loggedIn === true) {
-            return <Redirect to = "/home" />
-        }
+        // if (this.state.loggedIn) {
+        //     return <Redirect to = "/home" />
+        // }
        
         return (
 
             <div className="wrapper fadeInDown">
                 <div id="formContent">
                     <div className="fadeIn first">
-                    <img src={require("../Images/pg-logo.svg")} id="icon" alt="User Icon" />
+                    <img src={require("../../Images/pg-logo.svg")} id="icon" alt="User Icon" />
                     </div>
                     {/* <form> */}
                         <input 
@@ -91,4 +103,6 @@ class Login extends Component {
     }
 }
 
-export default Login
+
+export default Login;
+

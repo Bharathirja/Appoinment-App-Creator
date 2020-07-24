@@ -1,36 +1,41 @@
 import React, { Component } from 'react';
-import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
+import Navbar from '../../Components/Navbar/Navbar';
+import Footer from '../../Components/Footer/Footer';
 import {Redirect } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css'
+
+import creatorApi from "../../api/creatorApi";
+
 
 class Home extends Component {
     constructor(props) {
         super(props)
 
-        let token = localStorage.getItem('Token')
-        let loggedIn = false;
+        // let token = sessionStorage.getItem('userToken')
+        // let loggedIn = false;
 
-        if(token == null) {
-            loggedIn = false
-        }else {
-            loggedIn = true
-        }
+        // if(token == null) {
+        //     loggedIn = false
+        // }else {
+        //     loggedIn = true
+        // }
 
         // State Initially
         this.state = {
-            Shop_Name:"",
-            Owner_Name:"",
-            Mobile_Number:"",
-            Email:"",
-            Address:"",
-            GST_Number:"",
-            Title_Bar_Color:"",
-            Background_Image:"",
-            Icon_Color:"",
-            Logo:"",
-            loggedIn
+            shop_name:"",
+            owner_name:"",
+            mobile_number:"",
+            email:"",
+            address:"",
+            gstnumber:"",
+            titlebar_color:"",
+            background_image:"",
+            icon_color:"",
+            logo:"",
+            background_image_preview:'',
+            logo_preview:'',
+            // loggedIn
         }
 
         this.BgIChange = this.BgIChange.bind(this)
@@ -40,14 +45,16 @@ class Home extends Component {
     // Background image change
     BgIChange(event) {
         this.setState({
-            Background_Image: URL.createObjectURL(event.target.files[0])
+            background_image_preview:URL.createObjectURL(event.target.files[0]),
+            background_image: event.target.files[0]
         })
     }
 
     // Logo image change
     logoChange(event) {
         this.setState({
-            Logo:URL.createObjectURL(event.target.files[0])
+            logo_preview:URL.createObjectURL(event.target.files[0]),
+            logo:event.target.files[0]
         })
     }
 
@@ -58,39 +65,57 @@ class Home extends Component {
         })
     }
 
+    creator(creatorDetails) {
+        return creatorApi.creator(creatorDetails)
+    }
+
+
     // Submit form
     submitHandler = e => {
         e.preventDefault();
-        console.log(this.state)
+        // console.log(this.state)
+
+        const formData = new FormData();
+        
+        formData.append('shop_name',this.state.shop_name)
+        formData.append('owner_name',this.state.owner_name)
+        formData.append('mobile_number', this.state.mobile_number)
+        formData.append('email', this.state.email)
+        formData.append('address', this.state.address)
+        formData.append('gstnumber', this.state.gstnumber)
+        formData.append('titlebar_color', this.state.titlebar_color)
+        formData.append('background_image', this.state.background_image)
+        formData.append('icon_color', this.state.icon_color)
+        formData.append('logo', this.state.logo)
 
         // Data post API
-        // axios.post("URL",this.state)
-        // .then(response => {
-        //     console.log(response)
-        // })
-        // .catch(error => {
-        //     console.log(error)
-        // })
+        this.creator(formData)
+        .then(res => {
+            let data = res.data
+            console.log(data);
+            alert("Merchant Details Inserted Successfully!")
+            
+        }).catch(err => {
+            console.log(err)
+            // alert(err)
+        });
+
     }
 
     render() {
 
-        // declared here state keys using for inputs values
-        const { Shop_Name,
-        Owner_Name,
-        Mobile_Number,
-        Email,
-        Address,
-        GST_Number,
-        Title_Bar_Color,
-        Background_Image,
-        Icon_Color,
-        Logo } = this.state
+        // Declared here state keys using for inputs values
+        const { shop_name,
+        owner_name,
+        mobile_number,
+        email,
+        address,
+        gstnumber,} = this.state
         
         // If user not logged in page redirect to login
-        if(this.state.loggedIn === false) {
-            return <Redirect to = "/" />
-        }
+        // if(this.state.loggedIn === false) {
+        //     return <Redirect to = "/" />
+        // }
 
         // Else return home page
         return (
@@ -116,9 +141,9 @@ class Home extends Component {
                                             <input 
                                                 type='text' 
                                                 className="form-control" 
-                                                name="Shop_Name" 
+                                                name="shop_name" 
                                                 placeholder = "Merchant Name" 
-                                                value = {Shop_Name}
+                                                value = {shop_name}
                                                 onChange={this.changeHandler}
                                             />
                                         </div>
@@ -128,9 +153,9 @@ class Home extends Component {
                                             <input 
                                                 type='text' 
                                                 className="form-control" 
-                                                name="Owner_Name" 
+                                                name="owner_name" 
                                                 placeholder = "Owner Name"
-                                                value = {Owner_Name}
+                                                value = {owner_name}
                                                 onChange = { this.changeHandler }
                                             />
                                         </div>
@@ -140,9 +165,9 @@ class Home extends Component {
                                             <input 
                                                 type='text' 
                                                 className="form-control" 
-                                                name="Mobile_Number" 
+                                                name="mobile_number" 
                                                 placeholder = "Mobile Number"
-                                                value = {Mobile_Number}
+                                                value = {mobile_number}
                                                 onChange = { this.changeHandler }
                                             />
                                         </div>
@@ -152,9 +177,9 @@ class Home extends Component {
                                             <input 
                                                 type='text' 
                                                 className="form-control" 
-                                                name="Email" 
+                                                name="email" 
                                                 placeholder = "Email"
-                                                value = {Email}
+                                                value = {email}
                                                 onChange = { this.changeHandler }
                                             />
                                         </div>
@@ -167,8 +192,8 @@ class Home extends Component {
                                             <label className='font-weight-bold'>Address</label>
                                             <textarea 
                                                 className="form-control" 
-                                                name="Address"
-                                                value = {Address}
+                                                name="address"
+                                                value = {address}
                                                 onChange = { this.changeHandler }
                                                 >
                                             </textarea>
@@ -179,16 +204,16 @@ class Home extends Component {
                                             <input 
                                                 type='text' 
                                                 className="form-control" 
-                                                name="GST_Number" 
+                                                name="gstnumber" 
                                                 placeholder = "GST Number"
-                                                value = {GST_Number}
+                                                value = {gstnumber}
                                                 onChange = { this. changeHandler}
                                             />
                                         </div>
 
                                         <div className="col-md-3 mb-3">
                                             <label  className='font-weight-bold'>Title bar color</label>
-                                            <select className="form-control" id="state" onChange={(e) => this.setState({ Title_Bar_Color: e.target.value })}>
+                                            <select className="form-control" id="state" onChange={(e) => this.setState({ titlebar_color: e.target.value })}>
                                                 <option value="">Choose...</option>
                                                 <option value="red">Red</option>
                                                 <option value="green">Green</option>
@@ -211,7 +236,7 @@ class Home extends Component {
 
                                         <div className="col-md-3 mb-3">
                                             <label  className='font-weight-bold'>Icon color</label>
-                                            <select className="form-control" id="state" onChange={(e) => this.setState({Icon_Color:e.target.value})}>
+                                            <select className="form-control" id="state" onChange={(e) => this.setState({icon_color:e.target.value})}>
                                                 <option value="">Choose...</option>
                                                 <option value="red">Red</option>
                                             <option value="green">Green</option>
@@ -222,7 +247,7 @@ class Home extends Component {
                                         <div className="col-md-6 mb-3">
                                             <button className="btn btn-secondary"> EDIT</button>
                                             <button className="btn btn-info m-4 mt-3" type="submit"> SAVE</button>
-                                            <button className="btn btn-success">BUILD APP</button>
+                                            <button className="btn btn-success" href="CMD.exe">BUILD APP</button>
                                         </div>
                                     </div>
                                 </form>
@@ -234,12 +259,12 @@ class Home extends Component {
 
                                 <div className="col-md-3 mb-3">
                                     <label>Logo</label>
-                                    <img src={this.state.Logo}/>
+                                    <img src={this.state.logo_preview}/>
                                 </div>
 
                                 <div className="col-md-3 mb-3">
                                     <label>Background Image</label>
-                                    <img src={this.state.Background_Image}/>
+                                    <img src={this.state.background_image_preview}/>
                                 </div>
                             </div>
                         </div>
