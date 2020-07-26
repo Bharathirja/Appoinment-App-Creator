@@ -13,7 +13,13 @@ class Login extends Component {
 
     constructor(props) {
         super(props)
+        
+        this.state = {
+            username:'',
+            password:''
+        }
     }
+    
 
     setSessionStorage(result) {
         // console.log(result);
@@ -56,9 +62,7 @@ class Login extends Component {
     }
 
     render() {
-        // if (this.state.loggedIn) {
-        //     return <Redirect to = "/home" />
-        // }
+       
        
         return (
 
@@ -77,7 +81,7 @@ class Login extends Component {
                         />
                         
                         <input 
-                            type="text"  
+                            type="password"  
                             className="fadeIn third" 
                             name="password" 
                             placeholder="password"

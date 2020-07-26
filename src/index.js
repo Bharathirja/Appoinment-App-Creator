@@ -29,6 +29,9 @@ import { ROUTES } from './routes.js';
 import Home from './Pages/Home/Home';
 import Login from "./Pages/Login/Login";
 import About from "./Pages/About";
+import NewMerchant from './Pages/merchant/merchant';
+import Navbar from './Components/Navbar/Navbar';
+import EditMerchant from './Pages/merchant/edit_merchant'
 
 
 
@@ -72,11 +75,10 @@ ReactDOM.render(
         <HashRouter>
             <Switch>
               <Route exact path={ROUTES.LOGIN} component={Login} />
-             
+              <AuthRoute exact path={ROUTES.ADD_MERCHANT} component={NewMerchant} />
               <AuthRoute exact path={ROUTES.HOME} component={Home} />
               <AuthRoute exact path={ROUTES.ABOUT} component={About} />
-
-             
+              <AuthRoute exact path={ROUTES.EDIT_MERCHANT} component={EditMerchant} />
             </Switch>
           </HashRouter>,
   document.getElementById("root")

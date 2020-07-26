@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
-import {Redirect } from 'react-router-dom';
-import axios from 'axios';
 import './Home.css'
+import {Link} from 'react-router-dom'
 
 import creatorApi from "../../api/creatorApi";
 
@@ -12,110 +11,33 @@ class Home extends Component {
     constructor(props) {
         super(props)
 
-        // let token = sessionStorage.getItem('userToken')
-        // let loggedIn = false;
-
-        // if(token == null) {
-        //     loggedIn = false
-        // }else {
-        //     loggedIn = true
-        // }
-
         // State Initially
         this.state = {
-            shop_name:"",
-            owner_name:"",
-            mobile_number:"",
-            email:"",
-            address:"",
-            gstnumber:"",
-            titlebar_color:"",
-            background_image:"",
-            icon_color:"",
-            logo:"",
-            background_image_preview:'',
-            logo_preview:'',
-            // loggedIn
+            details:[]
         }
 
-        this.BgIChange = this.BgIChange.bind(this)
-        this.logoChange = this.logoChange.bind(this)
     }
+    
 
-    // Background image change
-    BgIChange(event) {
-        this.setState({
-            background_image_preview:URL.createObjectURL(event.target.files[0]),
-            background_image: event.target.files[0]
+    componentDidMount() {
+        this.getMerchantDetails().then(res => {
+            console.log(res)
+            let details = res.data
+            this.setState({
+                details:details
+            })
         })
-    }
-
-    // Logo image change
-    logoChange(event) {
-        this.setState({
-            logo_preview:URL.createObjectURL(event.target.files[0]),
-            logo:event.target.files[0]
-        })
-    }
-
-    // This handler using for every input Value changing
-    changeHandler = e => {
-        this.setState({
-            [e.target.name] : e.target.value
-        })
-    }
-
-    creator(creatorDetails) {
-        return creatorApi.creator(creatorDetails)
-    }
-
-
-    // Submit form
-    submitHandler = e => {
-        e.preventDefault();
-        // console.log(this.state)
-
-        const formData = new FormData();
-        
-        formData.append('shop_name',this.state.shop_name)
-        formData.append('owner_name',this.state.owner_name)
-        formData.append('mobile_number', this.state.mobile_number)
-        formData.append('email', this.state.email)
-        formData.append('address', this.state.address)
-        formData.append('gstnumber', this.state.gstnumber)
-        formData.append('titlebar_color', this.state.titlebar_color)
-        formData.append('background_image', this.state.background_image)
-        formData.append('icon_color', this.state.icon_color)
-        formData.append('logo', this.state.logo)
-
-        // Data post API
-        this.creator(formData)
-        .then(res => {
-            let data = res.data
-            console.log(data);
-            alert("Merchant Details Inserted Successfully!")
-            
-        }).catch(err => {
+        .catch(err => {
             console.log(err)
-            // alert(err)
-        });
+        })
+    }
+
+    getMerchantDetails() {
+        return creatorApi.getCreatorDetails()
 
     }
 
     render() {
-
-        // Declared here state keys using for inputs values
-        const { shop_name,
-        owner_name,
-        mobile_number,
-        email,
-        address,
-        gstnumber,} = this.state
-        
-        // If user not logged in page redirect to login
-        // if(this.state.loggedIn === false) {
-        //     return <Redirect to = "/" />
-        // }
 
         // Else return home page
         return (
@@ -124,152 +46,63 @@ class Home extends Component {
                 <Navbar />
                 {/* End */}
                 
-                <div className="container-fluid" >
+              <div className="container">
+                <div className="py-4">
+                    <h5>Merchants</h5>
+                    <table className="table border shadow">
+                    <thead >
+                        <tr>
+                        {/* <th scope="col">#</th> */}
+                        <th scope="col">Shop Name</th>
+                        <th scope="col">Merchant Name</th>
+                        <th scope="col">Mobile Number</th>
+                        <th scope="col">Email</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.details.map((merchant, index) => (
+                        <tr key={merchant.id}>
+                            {/* <th scope="row">{index + 1}</th> */}
+                            <td>{merchant.shop_name}</td>
+                            <td>{merchant.owner_name}</td>
+                            <td>{merchant.mobile_number}</td>
+                            <td>{merchant.email}</td>
+                            <td>
+                            <Link  to="/merchant-details"> 
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                            </svg>
 
-                    <div className="shadow p-3 mb-5 bg-white ">
-
-                        <div className="row">
-
-                            <div className="col-md-9">
-                                <h6 className="mb-3 font-weight-bold">MERCHANT APPLICATION</h6>
-                                <hr />
-                                <form onSubmit={this.submitHandler}>
-                                    <div className='row'>
-
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>Shop Name</label>
-                                            <input 
-                                                type='text' 
-                                                className="form-control" 
-                                                name="shop_name" 
-                                                placeholder = "Merchant Name" 
-                                                value = {shop_name}
-                                                onChange={this.changeHandler}
-                                            />
-                                        </div>
-
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>Owner Name</label>
-                                            <input 
-                                                type='text' 
-                                                className="form-control" 
-                                                name="owner_name" 
-                                                placeholder = "Owner Name"
-                                                value = {owner_name}
-                                                onChange = { this.changeHandler }
-                                            />
-                                        </div>
-
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>Mobile Number</label>
-                                            <input 
-                                                type='text' 
-                                                className="form-control" 
-                                                name="mobile_number" 
-                                                placeholder = "Mobile Number"
-                                                value = {mobile_number}
-                                                onChange = { this.changeHandler }
-                                            />
-                                        </div>
-                                       
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>Email</label>
-                                            <input 
-                                                type='text' 
-                                                className="form-control" 
-                                                name="email" 
-                                                placeholder = "Email"
-                                                value = {email}
-                                                onChange = { this.changeHandler }
-                                            />
-                                        </div>
-
-                                    </div>
-
-                                    <div className='row'>
-                                        
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>Address</label>
-                                            <textarea 
-                                                className="form-control" 
-                                                name="address"
-                                                value = {address}
-                                                onChange = { this.changeHandler }
-                                                >
-                                            </textarea>
-                                        </div>
-
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>GST Number</label>
-                                            <input 
-                                                type='text' 
-                                                className="form-control" 
-                                                name="gstnumber" 
-                                                placeholder = "GST Number"
-                                                value = {gstnumber}
-                                                onChange = { this. changeHandler}
-                                            />
-                                        </div>
-
-                                        <div className="col-md-3 mb-3">
-                                            <label  className='font-weight-bold'>Title bar color</label>
-                                            <select className="form-control" id="state" onChange={(e) => this.setState({ titlebar_color: e.target.value })}>
-                                                <option value="">Choose...</option>
-                                                <option value="red">Red</option>
-                                                <option value="green">Green</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>Logo</label>
-                                            <input type='file' onChange={this.logoChange}/>
-                                        </div>
-
-                                    </div>
-
-                                    <div className='row'>
-
-                                        <div className="col-md-3 mb-3">
-                                            <label className='font-weight-bold'>Background Image</label>
-                                            <input type='file'  onChange={this.BgIChange}/>
-                                        </div>
-
-                                        <div className="col-md-3 mb-3">
-                                            <label  className='font-weight-bold'>Icon color</label>
-                                            <select className="form-control" id="state" onChange={(e) => this.setState({icon_color:e.target.value})}>
-                                                <option value="">Choose...</option>
-                                                <option value="red">Red</option>
-                                            <option value="green">Green</option>
-
-                                            </select>
-                                        </div>
-                                        
-                                        <div className="col-md-6 mb-3">
-                                            <button className="btn btn-secondary"> EDIT</button>
-                                            <button className="btn btn-info m-4 mt-3" type="submit"> SAVE</button>
-                                            <button className="btn btn-success" href="CMD.exe">BUILD APP</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div className="col-md-3 font-weight-bold">
-                                <h6 className="mb-3">PREVIEW</h6>
-                                <hr/>
-
-                                <div className="col-md-3 mb-3">
-                                    <label>Logo</label>
-                                    <img src={this.state.logo_preview}/>
-                                </div>
-
-                                <div className="col-md-3 mb-3">
-                                    <label>Background Image</label>
-                                    <img src={this.state.background_image_preview}/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </Link> 
+                            <Link
+                                // className="btn btn-outline-primary mr-2"
+                                to={"/merchant/edit/"+merchant.id}
+                            >
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style={{marginLeft:"5px"}}>
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                            </Link>
+                            <Link to="/home">
+                            <svg width="1em" height="1em" style = {{marginLeft:"5px"}} viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
+                                <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
+                                <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
+                            </svg>
+                            </Link>
+                            
+                            </td>
+                        </tr>
+                        ))}
+                    </tbody>
+                    </table>
                 </div>
+                        
+            </div>
+  
+                <Footer />
             </div>
         )
     }
