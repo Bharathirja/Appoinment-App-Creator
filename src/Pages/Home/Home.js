@@ -32,6 +32,19 @@ class Home extends Component {
         })
     }
 
+    componentDidUpdate() {
+        this.getMerchantDetails().then(res => {
+            console.log(res)
+            let details = res.data
+            this.setState({
+                details:details
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
     getMerchantDetails() {
         return creatorApi.getCreatorDetails()
 

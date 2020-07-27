@@ -24,6 +24,9 @@ class EditMerchant extends Component {
             logo_preview:"",
             background_image_preview:""
         }
+        this.submitHandler = this.submitHandler.bind(this)
+        this.BgImageChange = this.BgImageChange.bind(this)
+        this.logoChange = this.logoChange.bind(this)
     }
 
     getMerchantDetails(id) {
@@ -50,13 +53,13 @@ class EditMerchant extends Component {
         this.setState({ ...this.state, [e.target.name]: e.target.value });
     };
 
-    logoChange = e => {
+    logoChange(e) {
       this.setState({ ...this.state,
         logo:e.target.files[0],
         logo_preview:URL.createObjectURL(e.target.files[0])})
     }
-    BgImageChange = e => {
-        this.setState({ ...this.state,
+    BgImageChange(e) {
+        this.setState({ 
             background_image:e.target.files[0],
             background_image_preview:URL.createObjectURL(e.target.files[0])})
     }
@@ -65,7 +68,7 @@ class EditMerchant extends Component {
         return creatorApi.updateMerchantDetails(data)
     }
 
-    submitHandler = e => {
+    submitHandler(e) {
         e.preventDefault()
         const formData = new FormData()
         
@@ -95,7 +98,8 @@ class EditMerchant extends Component {
 
         }
         
-        this.update(details).then(res => {
+        
+        this.update(formData).then(res => {
             console.log(res)
             alert("Updated Successfully")
         }).catch(err => {

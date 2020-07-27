@@ -1,0 +1,36 @@
+[debug] [2020-07-27T05:50:16.612Z] ----------------------------------------------------------------------
+[debug] [2020-07-27T05:50:16.616Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ELCOT\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-07-27T05:50:16.617Z] CLI Version:   8.6.0
+[debug] [2020-07-27T05:50:16.617Z] Platform:      win32
+[debug] [2020-07-27T05:50:16.618Z] Node Version:  v12.16.2
+[debug] [2020-07-27T05:50:16.620Z] Time:          Mon Jul 27 2020 11:20:16 GMT+0530 (India Standard Time)
+[debug] [2020-07-27T05:50:16.621Z] ----------------------------------------------------------------------
+[debug] [2020-07-27T05:50:16.621Z] 
+[debug] [2020-07-27T05:50:16.641Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-07-27T05:50:16.642Z] > authorizing via signed-in user
+[debug] [2020-07-27T05:50:16.643Z] [iam] checking project appointment-creator for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-07-27T05:50:16.651Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/appointment-creator:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-07-27T05:50:18.649Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 27 Jul 2020 05:50:19 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1147","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-27T05:50:18.653Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/appointment-creator  
+ 
+[debug] [2020-07-27T05:50:19.491Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 27 Jul 2020 05:50:20 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'appointment-creator'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2020-07-27T05:50:19.504Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/appointment-creator/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2020-07-27T05:50:23.455Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 27 Jul 2020 05:50:23 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[appointment-creator]: beginning deploy... 
+[info] i  hosting[appointment-creator]: found 21 files in build 
+[debug] [2020-07-27T05:50:23.493Z] [hosting] hash cache [YnVpbGQ] stored for 21 files
+[debug] [2020-07-27T05:50:23.494Z] [hosting][hash queue][FINAL] {"max":6,"min":0,"avg":0,"active":0,"complete":21,"success":21,"errored":0,"retried":0,"total":21,"elapsed":11}
+[debug] [2020-07-27T05:50:23.495Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/appointment-creator/versions/f7101536d25ca749:populateFiles  
+ <request body omitted>
+[debug] [2020-07-27T05:50:26.650Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 27 Jul 2020 05:50:27 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-07-27T05:50:26.663Z] [hosting][populate queue][FINAL] {"max":3162,"min":3162,"avg":3162,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":3172}
+[debug] [2020-07-27T05:50:26.664Z] [hosting] uploads queued: 4
+[debug] [2020-07-27T05:51:32.515Z] [uploadQueue] Retrying task dac9e00bfdaf4eaefb7a83ea3c3b5f0c75cc8708dddcbd1269fb5dbb7af4d973
+[debug] [2020-07-27T05:51:58.849Z] [uploadQueue] Retrying task 67aae5f6a002aa56dccc60a418a1f62342e61b0e3b85462756e8639806fc78b6
+[debug] [2020-07-27T05:52:48.700Z] [uploadQueue] Retrying task 67aae5f6a002aa56dccc60a418a1f62342e61b0e3b85462756e8639806fc78b6

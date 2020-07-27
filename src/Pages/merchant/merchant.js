@@ -29,6 +29,7 @@ class NewMerchant extends Component {
 
         this.BgIChange = this.BgIChange.bind(this)
         this.logoChange = this.logoChange.bind(this)
+        this.submitHandler = this.submitHandler.bind(this)
     }
 
     
@@ -63,7 +64,7 @@ class NewMerchant extends Component {
 
 
     // Submit form
-    submitHandler = e => {
+    submitHandler(e) {
         e.preventDefault();
         const formData = new FormData();
 
@@ -90,16 +91,7 @@ class NewMerchant extends Component {
             logo:this.state.logo,
 
         }
-        // const toekn = sessionStorage.getItem("userToken")
-        // const config = {
-        //     "Content-Type": "application/json",
-        //     Authorization: "aPPointmentaPPCreator " + toekn
-        // }
-        // axios.post("http://35.154.175.250/appcreator/merchant-details-insert", details,config).then(res => {
-        //     console.log(res)
-        // }).catch(err => {
-        //     console.log(err)
-        // })
+        
 
         // Data post API
         this.creator(formData)

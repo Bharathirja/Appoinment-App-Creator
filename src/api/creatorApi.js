@@ -12,13 +12,14 @@ export default class creatorApi{
     }
 
     static getSingleDetails(params) {
-        return NetworkManager.get(BASE_URL + CREATOR_API.GET_SINGLE_DATA + params + "/", true)
+        return NetworkManager.get(BASE_URL + CREATOR_API.GET_SINGLE_DATA + params +"/", true)
     }
 
-    static updateMerchantDetails(data) {
-        console.log(data)
+    static updateMerchantDetails(details) {
+        console.log(details.get("id"))
+        const id  = details.get("id")
         
-        return NetworkManager.put(BASE_URL + CREATOR_API.GET_SINGLE_DATA + data.id, data, true)
+        return NetworkManager.put(BASE_URL + CREATOR_API.GET_SINGLE_DATA + id+"/", details)
     }
 
 }

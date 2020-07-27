@@ -3,10 +3,10 @@ import axios from "axios";
 const setHeaders = isAuthRequired => {
     return new Promise((resolve, reject) => {
         if(isAuthRequired){
-            let user = JSON.parse(window.sessionStorage.getItem('userToken'));
+            let token = JSON.parse(window.sessionStorage.getItem('userToken'));
             resolve({
                 "Content-Type": "application/json",
-                Authorization: "aPPointmentaPPCreator " + user
+                Authorization: "aPPointmentaPPCreator " + token
             })
             
         }
@@ -66,6 +66,7 @@ class NetworkManager {
 
     static put(url, data, isAuthRequired = true, params = {}) {
         let config = {};
+        console.log("Auth Required",isAuthRequired)
         return setHeaders(isAuthRequired)
             .then(headers => {
                 config["headers"] = headers;
