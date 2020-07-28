@@ -25,6 +25,7 @@ const logError = error => {
     }
     else{
         console.log("Most likely a server timeout or an internet connection error");
+        alert("Most likely a server timeout or an internet connection error")
     }
 }
 
